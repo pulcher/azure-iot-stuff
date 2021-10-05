@@ -36,21 +36,21 @@ namespace Microsoft.Azure.Devices.Provisioning.Client.Samples
         /// <summary>
         /// Compute a symmetric key for the provisioned device from the enrollment group symmetric key used in attestation.
         /// </summary>
-        /// <param name="enrollmentKey">Enrollment group symmetric key.</param>
+        /// <param name="groupEnrollmentPrimaryKey">Enrollment group symmetric key.</param>
         /// <param name="deviceId">The device Id of the key to create.</param>
         /// <returns>The key for the specified device Id registration in the enrollment group.</returns>
         /// <seealso>
         /// https://docs.microsoft.com/en-us/azure/iot-edge/how-to-auto-provision-symmetric-keys?view=iotedge-2018-06#derive-a-device-key
         /// </seealso>
-        private static string ComputeDerivedSymmetricKey(string enrollmentKey, string deviceId)
+        private static string ComputeDerivedSymmetricKey(string groupEnrollmentPrimaryKey, string deviceId)
         {
-            if (string.IsNullOrWhiteSpace(enrollmentKey))
+            if (string.IsNullOrWhiteSpace(groupEnrollmentPrimaryKey))
             {
-                return enrollmentKey;
+                return groupEnrollmentPrimaryKey;
             }
 
-            using var hmac = new HMACSHA256(Convert.FromBase64String(enrollmentKey));
-            return Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(deviceId)));
+            using var hmac = new HMACSHA256(Convert.FromBase64String(groupEnrollmentPrimaryKey));
+            return Convert.ToBase64String(hmac.ComputeHash(Encoding.ASCII.GetBytes(deviceId)));
         }
     }
 }

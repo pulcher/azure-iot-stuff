@@ -23,7 +23,7 @@ namespace Microsoft.Azure.Devices.Provisioning.Client.Samples
         {
             _parameters = parameters;
         }
-
+            
         public async Task RunSampleAsync()
         {
             Console.WriteLine($"Initializing the device provisioning client...");
@@ -64,13 +64,17 @@ namespace Microsoft.Azure.Devices.Provisioning.Client.Samples
                 result.DeviceId,
                 security.GetPrimaryKey());
 
-            Console.WriteLine($"Testing the provisioned device with IoT Hub...");
+            Console.WriteLine($"Testing the provisioned device with IoT Hub...using Hub: {result.AssignedHub} over {_parameters.TransportType}...");
             using DeviceClient iotClient = DeviceClient.Create(result.AssignedHub, auth, _parameters.TransportType);
 
-            Console.WriteLine("Sending a telemetry message...");
-            using var message = new Message(Encoding.UTF8.GetBytes("TestMessage"));
-            await iotClient.SendEventAsync(message);
+            Console.WriteLine("Sending a telemetry messages...");
 
+            while (true)
+            {
+                using var message = new Message(Encoding.UTF8.GetBytes($"TestMessage at {DateTime.Now}"));
+                await iotClient.SendEventAsync(message);
+                await Task.Delay(2000);
+            }
             Console.WriteLine("Finished.");
         }
 

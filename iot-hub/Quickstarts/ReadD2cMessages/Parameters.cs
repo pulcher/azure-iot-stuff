@@ -38,7 +38,15 @@ namespace ReadD2cMessages
 
         internal string GetEventHubConnectionString()
         {
-            return EventHubConnectionString ?? $"Endpoint={EventHubCompatibleEndpoint};SharedAccessKeyName={IotHubSharedAccessKeyName};SharedAccessKey={SharedAccessKey}";
+            //return EventHubConnectionString ?? $"Endpoint={EventHubCompatibleEndpoint};SharedAccessKeyName={IotHubSharedAccessKeyName};SharedAccessKey={SharedAccessKey}";
+
+            //return "Endpoint = sb://iothub-ns-venahubcen-7432537-c3e53a2e25.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=mzGtHGmjBR6P+CEe8v0IOJPR98ySeglWfMJtIa68V8Y=;";
+            return "Endpoint=sb://iothub-ns-vespy-dev-15121653-688d30bd1e.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=LzRD73IMVKZW2/ElSp4/XkB2EpIIfF17gMaNkg2d4b4=;EntityPath=vespy-dev-iot-hub";
+        }
+
+        internal string GetDefaultConsumerGroup()
+        {
+            return "vespy-iot-craig";
         }
     }
 }

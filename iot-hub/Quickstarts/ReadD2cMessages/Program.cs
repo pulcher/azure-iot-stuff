@@ -36,14 +36,14 @@ namespace ReadD2cMessages
                 });
 
             // Either the connection string must be supplied, or the set of endpoint, name, and shared access key must be.
-            if (string.IsNullOrWhiteSpace(_parameters.EventHubConnectionString)
-                && (string.IsNullOrWhiteSpace(_parameters.EventHubCompatibleEndpoint)
-                    || string.IsNullOrWhiteSpace(_parameters.EventHubName)
-                    || string.IsNullOrWhiteSpace(_parameters.SharedAccessKey)))
-            {
-                Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result, null, null));
-                Environment.Exit(1);
-            }
+            //if (string.IsNullOrWhiteSpace(_parameters.EventHubConnectionString)
+            //    && (string.IsNullOrWhiteSpace(_parameters.EventHubCompatibleEndpoint)
+            //        || string.IsNullOrWhiteSpace(_parameters.EventHubName)
+            //        || string.IsNullOrWhiteSpace(_parameters.SharedAccessKey)))
+            //{
+            //    Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result, null, null));
+            //    Environment.Exit(1);
+            //}
 
             Console.WriteLine("IoT Hub Quickstarts - Read device to cloud messages. Ctrl-C to exit.\n");
 
@@ -67,12 +67,13 @@ namespace ReadD2cMessages
         private static async Task ReceiveMessagesFromDeviceAsync(CancellationToken ct)
         {
             string connectionString = _parameters.GetEventHubConnectionString();
+            var consumerGroup = _parameters.GetDefaultConsumerGroup();
 
             // Create the consumer using the default consumer group using a direct connection to the service.
             // Information on using the client with a proxy can be found in the README for this quick start, here:
             // https://github.com/Azure-Samples/azure-iot-samples-csharp/tree/master/iot-hub/Quickstarts/ReadD2cMessages/README.md#websocket-and-proxy-support
             await using var consumer = new EventHubConsumerClient(
-                EventHubConsumerClient.DefaultConsumerGroupName,
+                consumerGroup,    //EventHubConsumerClient.DefaultConsumerGroupName,
                 connectionString,
                 _parameters.EventHubName);
 

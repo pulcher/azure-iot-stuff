@@ -42,7 +42,7 @@ namespace Microsoft.Azure.Devices.Provisioning.Client.Samples
         [Option(
             'g',
             "GlobalDeviceEndpoint",
-            Default = "global.azure-devices-provisioning.net",
+            Default = "venatrust-dps.azure-devices-provisioning.net",
             HelpText = "The global endpoint for devices to connect to.")]
         public string GlobalDeviceEndpoint { get; set; }
 

@@ -32,7 +32,7 @@ namespace Microsoft.Azure.Devices.Provisioning.Client.Samples
         [Option(
             'r',
             "RegistrationId",
-            HelpText = "The registration Id from the individual enrollment. For normal runs, this is required.")]
+            HelpText = "The registration Id from the individual enrollment. Also known as the DeviceId. For normal runs, this is required.")]
         public string RegistrationId { get; set; }
 
         [Option(
